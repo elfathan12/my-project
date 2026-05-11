@@ -652,9 +652,9 @@ export default function App() {
         {/* ── Footer ── */}
         <footer className="relative z-10 text-center py-7 border-t border-white/5">
           <p className="text-gray-600 text-[11px]">
-            © 2025{' '}
+            © 2026{' '}
             <span style={{ color: '#d4a017' }}>Muhammad Rafif Alfathan</span>
-            {' '}· Built with React &amp; ♥
+            {' '}· Built with React 
           </p>
         </footer>
 
