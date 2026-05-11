@@ -440,14 +440,16 @@ export default function App() {
                   <div className="mt-2 h-[2px] w-16 rounded-full" style={{ background: 'linear-gradient(90deg, #d4a017, transparent)' }} />
                 </div>
                 <div className="md:w-2/3 space-y-4">
-                  <p className="text-gray-300 leading-relaxed text-sm">
-                    Hi everyone! My name is{' '}
-                    <span className="text-amber-400 font-semibold">Muhammad Rafif Alfathan</span>,
-                    from Tebing Tinggi, North Sumatra. I am currently a student at{' '}
-                    <span className="text-amber-400 font-semibold">Politeknik Negeri Medan</span>,
-                    majoring in Computer Engineering and Informatics.
-                    I really enjoy the process of learning and developing my skills in this field.
-                  </p>
+                 <p className="text-gray-300 leading-relaxed text-sm mt-4">
+  Hi everyone! My name is{' '}
+  <span className="text-amber-400 font-semibold">Muhammad Rafif Alfathan</span>,
+  from Tebing Tinggi, North Sumatra. I am currently a student at{' '}
+  <span className="text-amber-400 font-semibold">Politeknik Negeri Medan</span>,
+  majoring in Computer Engineering and Informatics.
+  I really enjoy the process of learning and developing my skills in this field.{' '}
+  Additionally, I have a strong passion for the social media field, particularly in account handling and working as a{' '}
+  <span className="text-amber-400 font-semibold">Social Media Administrator</span>.
+</p>
 
                   {/* Info chips */}
                   <div className="flex flex-wrap gap-2.5 pt-1">
