@@ -9,6 +9,7 @@ import { DiJavascript1, DiPhp, DiJava, DiPostgresql, DiMysql } from 'react-icons
 import { BsBootstrap } from 'react-icons/bs';
 import fotoProfil from './assets/foto-rafif.png';
 import webMieAcehTuahRizky from './assets/web-mieacehtuahrizky.png';
+import webKingBarbershopJkt from './assets/web-kingbarbershopjkt.png';
 
 const defaultRevealOptions = {};
 
@@ -159,6 +160,14 @@ export default function App() {
       href: 'https://mieacehtuahrizky.netlify.app/',
       image: webMieAcehTuahRizky,
       tech: ['React', 'Netlify', 'Responsive UI'],
+    },
+    {
+      title: 'King Barbershop',
+      role: 'Barbershop Website',
+      description: 'Website profesional untuk barbershop dengan desain modern dan fungsionalitas booking appointment yang user-friendly.',
+      href: 'https://kingbarbershopjkt.netlify.app/',
+      image: webKingBarbershopJkt,
+      tech: ['React', 'Netlify', 'Modern UI'],
     },
   ];
 
