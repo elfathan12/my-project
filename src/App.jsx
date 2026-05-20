@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   FaGithub, FaLinkedin, FaWhatsapp, FaInstagram, FaEnvelope,
   FaHtml5, FaCss3Alt, FaReact, FaLaravel, FaDownload, FaBars,
@@ -9,10 +9,29 @@ import { DiJavascript1, DiPhp, DiJava, DiPostgresql, DiMysql } from 'react-icons
 import { BsBootstrap } from 'react-icons/bs';
 import fotoProfil from './assets/foto-rafif.png';
 
+const defaultRevealOptions = {};
+
+const seededValue = (index, salt) => {
+  const value = Math.sin(index * 997 + salt * 37) * 10000;
+  return value - Math.floor(value);
+};
+
+const stars = Array.from({ length: 50 }, (_, i) => {
+  const size = seededValue(i, 3) * 1.8 + 0.4;
+
+  return {
+    left: `${seededValue(i, 1) * 100}%`,
+    top: `${seededValue(i, 2) * 100}%`,
+    width: `${size}px`,
+    height: `${size}px`,
+    animation: `twinkle ${seededValue(i, 4) * 3 + 2}s ${seededValue(i, 5) * 5}s ease-in-out infinite`,
+  };
+});
+
 // ─────────────────────────────────────────────
 // Hook: Intersection Observer
 // ─────────────────────────────────────────────
-function useReveal(options = {}) {
+function useReveal(options = defaultRevealOptions) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -24,7 +43,7 @@ function useReveal(options = {}) {
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, []);
+  }, [options]);
   return [ref, visible];
 }
 
@@ -126,6 +145,21 @@ export default function App() {
     { school: 'Politeknik Negeri Medan',     info: 'Teknologi Rekayasa Perangkat Lunak',    year: '2023 – Present',highlight: true  },
   ];
 
+  const links = {
+    github: 'https://github.com/elfathan12',
+    linkedin: 'https://www.linkedin.com/in/muhammad-rafif-alfathan-061617383/',
+  };
+
+  const projects = [
+    {
+      title: 'Mie Aceh Tuah Rizky',
+      role: 'Restaurant Website',
+      description: 'Website kuliner responsif untuk menampilkan brand Mie Aceh Tuah Rizky melalui halaman live yang rapi dan mudah diakses.',
+      href: 'https://mieacehtuahrizky.netlify.app/',
+      tech: ['React', 'Netlify', 'Responsive UI'],
+    },
+  ];
+
   const contacts = [
     {
       icon: <FaWhatsapp />,
@@ -149,6 +183,20 @@ export default function App() {
       value: 'rafifalfathan12@gmail.com',
       accent: '#f59e0b', // Kuning/Orange (kalau kamu mau merah bisa pakai #ef4444)
       href: 'mailto:rafifalfathan12@gmail.com',
+    },
+    {
+      icon: <FaGithub />,
+      label: 'GitHub',
+      value: 'github.com/elfathan12',
+      accent: '#e5e7eb',
+      href: links.github,
+    },
+    {
+      icon: <FaLinkedin />,
+      label: 'LinkedIn',
+      value: 'Muhammad Rafif Alfathan',
+      accent: '#0A66C2',
+      href: links.linkedin,
     },
   ];
 
@@ -282,12 +330,8 @@ export default function App() {
 
         {/* ── Stars ── */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-          {Array.from({ length: 50 }, (_, i) => (
-            <div key={i} className="absolute rounded-full bg-white" style={{
-              left:`${Math.random()*100}%`, top:`${Math.random()*100}%`,
-              width:`${Math.random()*1.8+0.4}px`, height:`${Math.random()*1.8+0.4}px`,
-              animation:`twinkle ${Math.random()*3+2}s ${Math.random()*5}s ease-in-out infinite`,
-            }} />
+          {stars.map((star, i) => (
+            <div key={i} className="absolute rounded-full bg-white" style={star} />
           ))}
         </div>
 
@@ -320,7 +364,13 @@ export default function App() {
             </ul>
 
             <div className="flex items-center gap-3">
-              <a href="#" className="text-xl text-gray-400 hover:text-amber-400 transition-all hover:scale-110">
+              <a
+                href={links.github}
+                target="_blank"
+                rel="noreferrer"
+                className="text-xl text-gray-400 hover:text-amber-400 transition-all hover:scale-110"
+                aria-label="GitHub profile"
+              >
                 <FaGithub />
               </a>
               <button
@@ -419,7 +469,9 @@ export default function App() {
                   <FaDownload size={12} /> Download CV
                 </button>
                 <a
-                  href="#"
+                  href={links.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
                   className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-semibold border border-white/15 text-gray-300 hover:border-amber-400/50 hover:text-amber-400 transition-all hover:-translate-y-1 active:scale-95"
                 >
                   <FaLinkedin style={{ color: '#0A66C2' }} size={14} /> LinkedIn
@@ -508,18 +560,51 @@ export default function App() {
               sub="Explore the projects i've worked on so far"
             />
 
-            <div
-              className={`w-full py-10 md:py-16 flex flex-col items-center justify-center border-2 border-dashed rounded-2xl ${glass}`}
-              style={{ borderColor: 'rgba(212,160,23,.2)' }}
-            >
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center mb-4"
-                style={{ background: 'rgba(212,160,23,.1)', border: '1px solid rgba(212,160,23,.25)' }}
-              >
-                <FaCode style={{ color: '#d4a017' }} size={18} />
-              </div>
-              <p className="font-bold text-sm" style={{ color: '#d4a017' }}>Coming Soon</p>
-              <p className="text-xs text-gray-500 mt-1">Project-project terbaik segera hadir di sini.</p>
+            <div className="grid gap-4 md:grid-cols-2">
+              {projects.map((project) => (
+                <a
+                  key={project.title}
+                  href={project.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`group block p-5 md:p-6 ${glass} no-underline transition-all duration-300 hover:-translate-y-1`}
+                  style={{ borderColor: 'rgba(212,160,23,.18)' }}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div
+                      className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+                      style={{ background: 'rgba(212,160,23,.12)', color: '#d4a017' }}
+                    >
+                      <FaCode size={17} />
+                    </div>
+                    <FaArrowRight className="text-gray-600 group-hover:text-amber-400 transition-all duration-300 group-hover:translate-x-1" size={14} />
+                  </div>
+
+                  <div className="mt-5">
+                    <p className="text-[10px] font-black uppercase tracking-[0.24em]" style={{ color: '#d4a017' }}>
+                      {project.role}
+                    </p>
+                    <h3 className="font-display text-xl font-bold text-white mt-1">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed mt-3">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mt-5">
+                    {project.tech.map((item) => (
+                      <span
+                        key={item}
+                        className="text-[10px] font-bold px-2.5 py-1 rounded-lg"
+                        style={{ background: 'rgba(255,255,255,.06)', color: '#d1d5db' }}
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </a>
+              ))}
             </div>
           </Section>
 
@@ -617,6 +702,8 @@ export default function App() {
                 <a
                   key={i}
                   href={c.href}
+                  target={c.href.startsWith('http') ? '_blank' : undefined}
+                  rel={c.href.startsWith('http') ? 'noreferrer' : undefined}
                   className={`contact-card group flex items-center gap-4 p-4 rounded-xl border cursor-pointer no-underline
                              transition-all duration-300`}
                   style={{
