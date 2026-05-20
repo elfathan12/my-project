@@ -8,6 +8,7 @@ import {
 import { DiJavascript1, DiPhp, DiJava, DiPostgresql, DiMysql } from 'react-icons/di';
 import { BsBootstrap } from 'react-icons/bs';
 import fotoProfil from './assets/foto-rafif.png';
+import webMieAcehTuahRizky from './assets/web-mieacehtuahrizky.png';
 
 const defaultRevealOptions = {};
 
@@ -156,6 +157,7 @@ export default function App() {
       role: 'Restaurant Website',
       description: 'Website kuliner responsif untuk menampilkan brand Mie Aceh Tuah Rizky melalui halaman live yang rapi dan mudah diakses.',
       href: 'https://mieacehtuahrizky.netlify.app/',
+      image: webMieAcehTuahRizky,
       tech: ['React', 'Netlify', 'Responsive UI'],
     },
   ];
@@ -567,41 +569,51 @@ export default function App() {
                   href={project.href}
                   target="_blank"
                   rel="noreferrer"
-                  className={`group block p-5 md:p-6 ${glass} no-underline transition-all duration-300 hover:-translate-y-1`}
+                  className={`group block overflow-hidden ${glass} no-underline transition-all duration-300 hover:-translate-y-1`}
                   style={{ borderColor: 'rgba(212,160,23,.18)' }}
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <div
-                      className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                      style={{ background: 'rgba(212,160,23,.12)', color: '#d4a017' }}
-                    >
-                      <FaCode size={17} />
-                    </div>
-                    <FaArrowRight className="text-gray-600 group-hover:text-amber-400 transition-all duration-300 group-hover:translate-x-1" size={14} />
+                  <div className="aspect-[16/9] w-full overflow-hidden border-b border-white/10 bg-white/[0.03]">
+                    <img
+                      src={project.image}
+                      alt={`Preview ${project.title}`}
+                      className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
                   </div>
 
-                  <div className="mt-5">
-                    <p className="text-[10px] font-black uppercase tracking-[0.24em]" style={{ color: '#d4a017' }}>
-                      {project.role}
-                    </p>
-                    <h3 className="font-display text-xl font-bold text-white mt-1">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed mt-3">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mt-5">
-                    {project.tech.map((item) => (
-                      <span
-                        key={item}
-                        className="text-[10px] font-bold px-2.5 py-1 rounded-lg"
-                        style={{ background: 'rgba(255,255,255,.06)', color: '#d1d5db' }}
+                  <div className="p-5 md:p-6">
+                    <div className="flex items-start justify-between gap-4">
+                      <div
+                        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+                        style={{ background: 'rgba(212,160,23,.12)', color: '#d4a017' }}
                       >
-                        {item}
-                      </span>
-                    ))}
+                        <FaCode size={17} />
+                      </div>
+                      <FaArrowRight className="text-gray-600 group-hover:text-amber-400 transition-all duration-300 group-hover:translate-x-1" size={14} />
+                    </div>
+
+                    <div className="mt-5">
+                      <p className="text-[10px] font-black uppercase tracking-[0.24em]" style={{ color: '#d4a017' }}>
+                        {project.role}
+                      </p>
+                      <h3 className="font-display text-xl font-bold text-white mt-1">
+                        {project.title}
+                      </h3>
+                      <p className="text-gray-400 text-sm leading-relaxed mt-3">
+                        {project.description}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 mt-5">
+                      {project.tech.map((item) => (
+                        <span
+                          key={item}
+                          className="text-[10px] font-bold px-2.5 py-1 rounded-lg"
+                          style={{ background: 'rgba(255,255,255,.06)', color: '#d1d5db' }}
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </a>
               ))}
