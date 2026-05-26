@@ -7,6 +7,8 @@ import {
 } from 'react-icons/fa';
 import { DiJavascript1, DiPhp, DiJava, DiPostgresql, DiMysql } from 'react-icons/di';
 import { BsBootstrap } from 'react-icons/bs';
+import { SiFigma } from 'react-icons/si';
+import { TbBrandAdobeAfterEffect } from 'react-icons/tb';
 import fotoProfil from './assets/foto-rafif.png';
 import webMieAcehTuahRizky from './assets/web-mieacehtuahrizky.png';
 import webKingBarbershopJkt from './assets/web-kingbarbershopjkt.png';
@@ -140,6 +142,8 @@ export default function App() {
     { name: 'MySQL',      icon: <DiMysql />,        color: '#60a5fa' },
     { name: 'PostgreSQL', icon: <DiPostgresql />,   color: '#7dd3fc' },
     { name: 'Bootstrap',  icon: <BsBootstrap />,    color: '#a855f7' },
+    { name: 'Figma',      icon: <SiFigma />,         color: '#f24e1e' },
+    { name: 'After Effects', icon: <TbBrandAdobeAfterEffect />, color: '#9999ff' },
   ];
 
   const education = [
@@ -531,7 +535,7 @@ export default function App() {
           <Section id="skills" className="mt-8 md:mt-20">
             <SectionHead num="02." title={<>Skills <span className="text-gray-500 text-lg font-normal">(Learning)</span></>} />
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
               {skills.map((s, i) => (
                 <div
                   key={i}
