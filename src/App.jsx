@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  FaGithub, FaLinkedin, FaWhatsapp, FaInstagram, FaEnvelope,
+  FaLinkedin, FaInstagram, FaEnvelope,
   FaHtml5, FaCss3Alt, FaReact, FaLaravel, FaDownload, FaBars,
   FaTimes, FaMapMarkerAlt, FaGraduationCap, FaCode, FaArrowRight,
   FaChevronUp, FaBriefcase
@@ -10,6 +10,8 @@ import { BsBootstrap } from 'react-icons/bs';
 import fotoProfil from './assets/foto-rafif.png';
 import webMieAcehTuahRizky from './assets/web-mieacehtuahrizky.png';
 import webKingBarbershopJkt from './assets/web-kingbarbershopjkt.png';
+import webLoveLetter from './assets/web-loveletter.png';
+import webRelationshipUniverse from './assets/web-relationshipuniverse.png';
 
 const defaultRevealOptions = {};
 
@@ -148,7 +150,6 @@ export default function App() {
   ];
 
   const links = {
-    github: 'https://github.com/elfathan12',
     linkedin: 'https://www.linkedin.com/in/muhammad-rafif-alfathan-061617383/',
   };
 
@@ -169,17 +170,25 @@ export default function App() {
       image: webKingBarbershopJkt,
       tech: ['React', 'Netlify', 'Modern UI'],
     },
+    {
+      title: 'Romantic Love Letter',
+      role: 'Interactive Love Letter',
+      description: 'Halaman web bertema surat cinta digital dengan visual romantis, interaksi lembut, dan pengalaman personal.',
+      href: 'https://rapipsayangjihyo.vercel.app/',
+      image: webLoveLetter,
+      tech: ['React', 'Creative UI', 'Responsive'],
+    },
+    {
+      title: 'Relationship - Our Little Universe',
+      role: 'Relationship Website',
+      description: 'Website personal bertema relationship universe dengan nuansa hangat, visual storytelling, dan detail yang memorable.',
+      href: 'https://jihyoosmine.vercel.app/',
+      image: webRelationshipUniverse,
+      tech: ['React', 'Storytelling', 'Responsive'],
+    },
   ];
 
   const contacts = [
-    {
-      icon: <FaWhatsapp />,
-      label: 'Whatsapp',
-      value: '0821-8806-1152',
-      accent: '#22c55e', // Hijau
-      // Gunakan wa.me untuk link WhatsApp langsung (tanpa angka 0 di depan, diganti kode negara 62)
-      href: 'https://wa.me/6282188061152', 
-    },
     {
       icon: <FaInstagram />,
       label: 'Instagram',
@@ -194,13 +203,6 @@ export default function App() {
       value: 'rafifalfathan12@gmail.com',
       accent: '#f59e0b', // Kuning/Orange (kalau kamu mau merah bisa pakai #ef4444)
       href: 'mailto:rafifalfathan12@gmail.com',
-    },
-    {
-      icon: <FaGithub />,
-      label: 'GitHub',
-      value: 'github.com/elfathan12',
-      accent: '#e5e7eb',
-      href: links.github,
     },
     {
       icon: <FaLinkedin />,
@@ -375,15 +377,6 @@ export default function App() {
             </ul>
 
             <div className="flex items-center gap-3">
-              <a
-                href={links.github}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xl text-gray-400 hover:text-amber-400 transition-all hover:scale-110"
-                aria-label="GitHub profile"
-              >
-                <FaGithub />
-              </a>
               <button
                 className="md:hidden p-1.5 text-gray-300 hover:text-white transition-colors"
                 onClick={() => setMenuOpen(o => !o)}
@@ -571,61 +564,66 @@ export default function App() {
               sub="Explore the projects i've worked on so far"
             />
 
-            <div className="grid gap-4 md:grid-cols-2">
-              {projects.map((project) => (
-                <a
-                  key={project.title}
-                  href={project.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`group block overflow-hidden ${glass} no-underline transition-all duration-300 hover:-translate-y-1`}
-                  style={{ borderColor: 'rgba(212,160,23,.18)' }}
-                >
-                  <div className="aspect-[16/9] w-full overflow-hidden border-b border-white/10 bg-white/[0.03]">
-                    <img
-                      src={project.image}
-                      alt={`Preview ${project.title}`}
-                      className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
+              {projects.map((project) => {
+                const isLinked = Boolean(project.href);
+                const ProjectCard = isLinked ? 'a' : 'article';
 
-                  <div className="p-5 md:p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <div
-                        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                        style={{ background: 'rgba(212,160,23,.12)', color: '#d4a017' }}
-                      >
-                        <FaCode size={17} />
-                      </div>
-                      <FaArrowRight className="text-gray-600 group-hover:text-amber-400 transition-all duration-300 group-hover:translate-x-1" size={14} />
+                return (
+                  <ProjectCard
+                    key={project.title}
+                    {...(isLinked ? { href: project.href, target: '_blank', rel: 'noreferrer' } : {})}
+                    className={`group block overflow-hidden ${glass} no-underline transition-all duration-300 ${isLinked ? 'hover:-translate-y-1' : ''}`}
+                    style={{ borderColor: 'rgba(212,160,23,.18)' }}
+                  >
+                    <div className="aspect-[4/3] sm:aspect-[16/9] w-full overflow-hidden border-b border-white/10 bg-white/[0.03]">
+                      <img
+                        src={project.image}
+                        alt={`Preview ${project.title}`}
+                        className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      />
                     </div>
 
-                    <div className="mt-5">
-                      <p className="text-[10px] font-black uppercase tracking-[0.24em]" style={{ color: '#d4a017' }}>
-                        {project.role}
-                      </p>
-                      <h3 className="font-display text-xl font-bold text-white mt-1">
-                        {project.title}
-                      </h3>
-                      <p className="text-gray-400 text-sm leading-relaxed mt-3">
-                        {project.description}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mt-5">
-                      {project.tech.map((item) => (
-                        <span
-                          key={item}
-                          className="text-[10px] font-bold px-2.5 py-1 rounded-lg"
-                          style={{ background: 'rgba(255,255,255,.06)', color: '#d1d5db' }}
+                    <div className="p-3 sm:p-5 md:p-6">
+                      <div className="flex items-start justify-between gap-2 sm:gap-4">
+                        <div
+                          className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0"
+                          style={{ background: 'rgba(212,160,23,.12)', color: '#d4a017' }}
                         >
-                          {item}
-                        </span>
-                      ))}
+                          <FaCode className="text-[13px] sm:text-[17px]" />
+                        </div>
+                        {isLinked && (
+                          <FaArrowRight className="text-gray-600 group-hover:text-amber-400 transition-all duration-300 group-hover:translate-x-1" size={14} />
+                        )}
+                      </div>
+
+                      <div className="mt-3 sm:mt-5">
+                        <p className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.14em] sm:tracking-[0.24em] leading-relaxed" style={{ color: '#d4a017' }}>
+                          {project.role}
+                        </p>
+                        <h3 className="font-display text-[13px] sm:text-xl font-bold text-white mt-1 leading-snug">
+                          {project.title}
+                        </h3>
+                        <p className="hidden sm:block text-gray-400 text-sm leading-relaxed mt-3">
+                          {project.description}
+                        </p>
+                      </div>
+
+                      <div className="hidden sm:flex flex-wrap gap-2 mt-5">
+                        {project.tech.map((item) => (
+                          <span
+                            key={item}
+                            className="text-[10px] font-bold px-2.5 py-1 rounded-lg"
+                            style={{ background: 'rgba(255,255,255,.06)', color: '#d1d5db' }}
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </a>
-              ))}
+                  </ProjectCard>
+                );
+              })}
             </div>
           </Section>
 
