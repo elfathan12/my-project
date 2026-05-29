@@ -3,7 +3,7 @@ import {
   FaLinkedin, FaInstagram, FaEnvelope,
   FaHtml5, FaCss3Alt, FaReact, FaLaravel, FaDownload, FaBars,
   FaTimes, FaMapMarkerAlt, FaGraduationCap, FaCode, FaArrowRight,
-  FaChevronUp, FaBriefcase
+  FaChevronUp, FaBriefcase, FaEye
 } from 'react-icons/fa';
 import { DiJavascript1, DiPhp, DiJava, DiPostgresql, DiMysql } from 'react-icons/di';
 import { BsBootstrap } from 'react-icons/bs';
@@ -14,6 +14,7 @@ import webMieAcehTuahRizky from './assets/web-mieacehtuahrizky.png';
 import webKingBarbershopJkt from './assets/web-kingbarbershopjkt.png';
 import webLoveLetter from './assets/web-loveletter.png';
 import webRelationshipUniverse from './assets/web-relationshipuniverse.png';
+import cvPdf from './assets/Curriculum Vitae - Muhammad Rafif Alfathan.pdf';
 
 const defaultRevealOptions = {};
 
@@ -120,6 +121,8 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showTop, setShowTop] = useState(false);
+  const [cvMenuOpen, setCvMenuOpen] = useState(false);
+  const cvMenuRef = useRef(null);
   const typedText = useTyping(['Informatics Student', 'Tech Enthusiast', 'Web Developer']);
 
   useEffect(() => {
@@ -129,6 +132,26 @@ export default function App() {
     };
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const closeCvMenu = (event) => {
+      if (cvMenuRef.current && !cvMenuRef.current.contains(event.target)) {
+        setCvMenuOpen(false);
+      }
+    };
+
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setCvMenuOpen(false);
+    };
+
+    document.addEventListener('mousedown', closeCvMenu);
+    document.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', closeCvMenu);
+      document.removeEventListener('keydown', closeOnEscape);
+    };
   }, []);
 
   const skills = [
@@ -472,10 +495,45 @@ export default function App() {
 
               {/* CTAs */}
               <div className="flex flex-wrap gap-3 justify-center md:justify-start pt-1">
-                <button className="gold-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-bold text-black transition-all hover:-translate-y-1 active:scale-95"
-                  style={{ boxShadow: '0 8px 24px rgba(184,149,42,.35)' }}>
-                  <FaDownload size={12} /> Download CV
-                </button>
+                <div ref={cvMenuRef} className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setCvMenuOpen(open => !open)}
+                    aria-expanded={cvMenuOpen}
+                    aria-haspopup="menu"
+                    className="gold-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-bold text-black transition-all hover:-translate-y-1 active:scale-95"
+                    style={{ boxShadow: '0 8px 24px rgba(184,149,42,.35)' }}
+                  >
+                    <FaDownload size={12} /> Download CV
+                  </button>
+
+                  {cvMenuOpen && (
+                    <div
+                      role="menu"
+                      className="absolute left-1/2 md:left-0 top-full z-40 mt-3 w-48 -translate-x-1/2 md:translate-x-0 overflow-hidden rounded-xl border border-white/10 bg-[#11111b]/95 p-1.5 text-left shadow-[0_18px_45px_rgba(0,0,0,.45)] backdrop-blur-md"
+                    >
+                      <a
+                        href={cvPdf}
+                        target="_blank"
+                        rel="noreferrer"
+                        role="menuitem"
+                        onClick={() => setCvMenuOpen(false)}
+                        className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-[13px] font-semibold text-gray-200 transition-colors hover:bg-white/8 hover:text-amber-400"
+                      >
+                        <FaEye size={13} /> Lihat CV
+                      </a>
+                      <a
+                        href={cvPdf}
+                        download="Curriculum Vitae - Muhammad Rafif Alfathan.pdf"
+                        role="menuitem"
+                        onClick={() => setCvMenuOpen(false)}
+                        className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-[13px] font-semibold text-gray-200 transition-colors hover:bg-white/8 hover:text-amber-400"
+                      >
+                        <FaDownload size={12} /> Download CV
+                      </a>
+                    </div>
+                  )}
+                </div>
                 <a
                   href={links.linkedin}
                   target="_blank"
