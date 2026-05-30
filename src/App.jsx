@@ -7,13 +7,13 @@ import {
 } from 'react-icons/fa';
 import { DiJavascript1, DiPhp, DiJava, DiPostgresql, DiMysql } from 'react-icons/di';
 import { BsBootstrap } from 'react-icons/bs';
-import { SiFigma } from 'react-icons/si';
-import { TbBrandAdobeAfterEffect } from 'react-icons/tb';
+import { SiAstro, SiFigma } from 'react-icons/si';
 import fotoProfil from './assets/foto-rafif.png';
 import webMieAcehTuahRizky from './assets/web-mieacehtuahrizky.png';
 import webKingBarbershopJkt from './assets/web-kingbarbershopjkt.png';
 import webLoveLetter from './assets/web-loveletter.png';
 import webRelationshipUniverse from './assets/web-relationshipuniverse.png';
+import webSukaGadai from './assets/web-sukagadai.png';
 import cvPdf from './assets/Curriculum Vitae - Muhammad Rafif Alfathan.pdf';
 
 const defaultRevealOptions = {};
@@ -160,13 +160,13 @@ export default function App() {
     { name: 'Javascript', icon: <DiJavascript1 />,  color: '#facc15' },
     { name: 'PHP',        icon: <DiPhp />,          color: '#818cf8' },
     { name: 'React',      icon: <FaReact />,        color: '#22d3ee' },
+    { name: 'Astro',      icon: <SiAstro />,        color: '#ff5d01' },
     { name: 'Laravel',    icon: <FaLaravel />,      color: '#ef4444' },
     { name: 'Java',       icon: <DiJava />,         color: '#fb923c' },
     { name: 'MySQL',      icon: <DiMysql />,        color: '#60a5fa' },
     { name: 'PostgreSQL', icon: <DiPostgresql />,   color: '#7dd3fc' },
     { name: 'Bootstrap',  icon: <BsBootstrap />,    color: '#a855f7' },
     { name: 'Figma',      icon: <SiFigma />,         color: '#f24e1e' },
-    { name: 'After Effects', icon: <TbBrandAdobeAfterEffect />, color: '#9999ff' },
   ];
 
   const education = [
@@ -181,6 +181,14 @@ export default function App() {
   };
 
   const projects = [
+    {
+      title: 'SukaGadai',
+      role: 'Pawnshop & Loan Website',
+      description: 'Website layanan gadai dan pinjaman dana cepat dengan kalkulator simulasi real-time, tarif bunga bertingkat, dan alur pengajuan via WhatsApp.',
+      href: 'https://sukagadai.vercel.app/',
+      image: webSukaGadai,
+      tech: ['Astro', 'Vercel', 'Loan Calculator'],
+    },
     {
       title: 'Mie Aceh Tuah Rizky',
       role: 'Restaurant Website',
