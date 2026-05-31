@@ -14,6 +14,13 @@ import webKingBarbershopJkt from './assets/web-kingbarbershopjkt.png';
 import webLoveLetter from './assets/web-loveletter.png';
 import webRelationshipUniverse from './assets/web-relationshipuniverse.png';
 import webSukaGadai from './assets/web-sukagadai.png';
+import webAdminLoginGeoSafe from './assets/geosafe/web-adminlogingeosafe.png';
+import webAdminKelolaGeoSafe from './assets/geosafe/web-adminkelolageosafe.png';
+import webDashboardAdminGeoSafe from './assets/geosafe/web-dashboardadmingeosafe.png';
+import webDashboardGeoSafe from './assets/geosafe/web-dashboardgeosafe.png';
+import webPetaRawanBegalGeoSafe from './assets/geosafe/web-petarawanbegalgeosafe.png';
+import webPersetujuanLaporanUserGeoSafe from './assets/geosafe/web-persetujuanlaporanusergeosafe.png';
+import webUserLaporAreaRawanBegalGeoSafe from './assets/geosafe/web-userlaporarearawanbegalgeosafe.png';
 import cvPdf from './assets/Curriculum Vitae - Muhammad Rafif Alfathan.pdf';
 
 const defaultRevealOptions = {};
@@ -122,6 +129,7 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [showTop, setShowTop] = useState(false);
   const [cvMenuOpen, setCvMenuOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
   const cvMenuRef = useRef(null);
   const typedText = useTyping(['Informatics Student', 'Tech Enthusiast', 'Web Developer']);
 
@@ -153,6 +161,23 @@ export default function App() {
       document.removeEventListener('keydown', closeOnEscape);
     };
   }, []);
+
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    const originalOverflow = document.body.style.overflow;
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setSelectedProject(null);
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [selectedProject]);
 
   const skills = [
     { name: 'HTML',       icon: <FaHtml5 />,       color: '#f97316' },
@@ -188,6 +213,23 @@ export default function App() {
       href: 'https://sukagadai.vercel.app/',
       image: webSukaGadai,
       tech: ['Astro', 'Vercel', 'Loan Calculator'],
+    },
+    {
+      title: 'GeoSafe',
+      role: 'Laravel Safety Mapping App',
+      description: 'Aplikasi pemetaan area rawan begal berbasis Laravel dengan dashboard admin, laporan user, validasi laporan, dan penyimpanan data menggunakan PostgreSQL.',
+      image: webDashboardGeoSafe,
+      tech: ['Laravel', 'PostgreSQL', 'Web GIS'],
+      status: 'Preview screenshots',
+      gallery: [
+        { title: 'Dashboard User', image: webDashboardGeoSafe },
+        { title: 'Peta Area Rawan Begal', image: webPetaRawanBegalGeoSafe },
+        { title: 'Lapor Area Rawan Begal', image: webUserLaporAreaRawanBegalGeoSafe },
+        { title: 'Admin Login', image: webAdminLoginGeoSafe },
+        { title: 'Dashboard Admin', image: webDashboardAdminGeoSafe },
+        { title: 'Kelola Data GeoSafe', image: webAdminKelolaGeoSafe },
+        { title: 'Persetujuan Laporan User', image: webPersetujuanLaporanUserGeoSafe },
+      ],
     },
     {
       title: 'Mie Aceh Tuah Rizky',
@@ -637,15 +679,10 @@ export default function App() {
             <div className="grid grid-cols-2 gap-3 md:gap-4">
               {projects.map((project) => {
                 const isLinked = Boolean(project.href);
-                const ProjectCard = isLinked ? 'a' : 'article';
-
-                return (
-                  <ProjectCard
-                    key={project.title}
-                    {...(isLinked ? { href: project.href, target: '_blank', rel: 'noreferrer' } : {})}
-                    className={`group block overflow-hidden ${glass} no-underline transition-all duration-300 ${isLinked ? 'hover:-translate-y-1' : ''}`}
-                    style={{ borderColor: 'rgba(212,160,23,.18)' }}
-                  >
+                const hasGallery = Boolean(project.gallery?.length);
+                const cardClass = `group block overflow-hidden ${glass} no-underline text-left transition-all duration-300 ${(isLinked || hasGallery) ? 'hover:-translate-y-1 cursor-pointer' : ''}`;
+                const cardContent = (
+                  <>
                     <div className="aspect-[4/3] sm:aspect-[16/9] w-full overflow-hidden border-b border-white/10 bg-white/[0.03]">
                       <img
                         src={project.image}
@@ -665,6 +702,9 @@ export default function App() {
                         {isLinked && (
                           <FaArrowRight className="text-gray-600 group-hover:text-amber-400 transition-all duration-300 group-hover:translate-x-1" size={14} />
                         )}
+                        {hasGallery && (
+                          <FaEye className="text-gray-600 group-hover:text-amber-400 transition-all duration-300 group-hover:scale-110" size={14} />
+                        )}
                       </div>
 
                       <div className="mt-3 sm:mt-5">
@@ -677,6 +717,11 @@ export default function App() {
                         <p className="hidden sm:block text-gray-400 text-sm leading-relaxed mt-3">
                           {project.description}
                         </p>
+                        {project.status && (
+                          <p className="hidden sm:inline-flex mt-3 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-amber-400/20 text-amber-400 bg-amber-400/10">
+                            {project.status}
+                          </p>
+                        )}
                       </div>
 
                       <div className="hidden sm:flex flex-wrap gap-2 mt-5">
@@ -691,7 +736,35 @@ export default function App() {
                         ))}
                       </div>
                     </div>
-                  </ProjectCard>
+                  </>
+                );
+
+                if (isLinked) {
+                  return (
+                    <a
+                      key={project.title}
+                      href={project.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={cardClass}
+                      style={{ borderColor: 'rgba(212,160,23,.18)' }}
+                    >
+                      {cardContent}
+                    </a>
+                  );
+                }
+
+                return (
+                  <button
+                    key={project.title}
+                    type="button"
+                    onClick={() => hasGallery && setSelectedProject(project)}
+                    className={`${cardClass} border p-0 text-white`}
+                    style={{ borderColor: 'rgba(212,160,23,.18)' }}
+                    aria-label={hasGallery ? `Lihat screenshot ${project.title}` : project.title}
+                  >
+                    {cardContent}
+                  </button>
                 );
               })}
             </div>
@@ -826,6 +899,71 @@ export default function App() {
             </div>
           </Section>
         </main>
+
+        {selectedProject && (
+          <div
+            className="fixed inset-0 z-[80] flex items-center justify-center bg-black/80 px-3 py-5 backdrop-blur-sm"
+            onClick={() => setSelectedProject(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-gallery-title"
+          >
+            <div
+              className="w-full max-w-6xl max-h-[88vh] overflow-hidden rounded-2xl border border-white/10 bg-[#0c0c14]/95 shadow-[0_24px_80px_rgba(0,0,0,.55)]"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="flex items-start justify-between gap-4 border-b border-white/10 p-4 sm:p-6">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.24em]" style={{ color: '#d4a017' }}>
+                    Project Preview
+                  </p>
+                  <h3 id="project-gallery-title" className="font-display text-xl sm:text-3xl font-bold text-white mt-1">
+                    {selectedProject.title}
+                  </h3>
+                  <p className="mt-2 max-w-3xl text-xs sm:text-sm leading-relaxed text-gray-400">
+                    {selectedProject.description}
+                  </p>
+                  <p className="mt-2 text-[11px] font-semibold text-amber-400">
+                    Belum di-hosting karena project ini menggunakan database PostgreSQL. Berikut beberapa screenshot tampilan webnya.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedProject(null)}
+                  className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-300 transition-all hover:border-amber-400/40 hover:text-amber-400"
+                  aria-label="Tutup preview project"
+                >
+                  <FaTimes size={16} />
+                </button>
+              </div>
+
+              <div className="max-h-[64vh] overflow-y-auto p-4 sm:p-6">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  {selectedProject.gallery.map((screen) => (
+                    <article
+                      key={screen.title}
+                      className="overflow-hidden rounded-xl border border-white/10 bg-white/[0.035]"
+                    >
+                      <div className="aspect-[16/9] overflow-hidden border-b border-white/10 bg-black/20">
+                        <img
+                          src={screen.image}
+                          alt={`${selectedProject.title} - ${screen.title}`}
+                          className="h-full w-full object-cover object-top"
+                        />
+                      </div>
+                      <div className="flex items-center justify-between gap-3 p-3">
+                        <p className="text-sm font-bold text-white">{screen.title}</p>
+                        <span className="rounded-lg bg-amber-400/10 px-2 py-1 text-[10px] font-bold text-amber-400">
+                          Screenshot
+                        </span>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* ── Footer ── */}
         <footer className="relative z-10 text-center py-7 border-t border-white/5">
